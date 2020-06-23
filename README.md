@@ -107,7 +107,7 @@ let fib = function (n){
 
 运行时长如图：
 
-![image-20200622114636704](/Users/zhix/Library/Application Support/typora-user-images/image-20200622114636704.png)
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg26jyk6apj30um0pudjj.jpg)
 
 我们可以看到，堆栈超出问题已经解决，这就是算法的魅力和和对应使用场景的必要性。
 
