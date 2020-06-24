@@ -539,3 +539,171 @@ const node  = new TreeNode(1);
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg16srp3kjj30vy0mcwg7.jpg)
 
+#### 二叉树的遍历
+
+以一定的顺序规则，逐个访问二叉树的所有结点，这就是遍历。根据顺序规则的不同，遍历方式有一下四种：
+
+- 先序遍历
+- 中序遍历
+- 后序遍历
+- 层次遍历
+
+按照实现方式不同，遍历方式又可以分为以下两种：
+
+- 递归遍历（先、中、后序遍历）
+- 迭代遍历（层次遍历）
+
+#### 递归遍历
+
+我们都知道，在一个函数中，如果出现了在函数体中调用了自身，这就是一个递归函数。简单来说，一个函数在反复调用自己的时候，递归也就产生了。一个递归函数需要两个必需条件：
+
+- 递归式（函数体---你要重复做什么）
+- 递归边界（出口---达到什么条件时停止递归）
+
+现在我们再来看二叉树，一个完整的二叉树应该由这三部分组成：
+
+- 根结点
+- 左子树
+- 右子树
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg3gj79jfxj30iq0co74r.jpg)
+
+对于二叉树的遍历，就可以看做是对这三个部分的遍历，在保证“左子树一定先于右子树遍历”的前提下，有三种遍历顺序：
+
+- 根结点=>左子树=>右子树
+- 左子树=>根结点=>右子树
+- 左子树=>右子树=>根结点
+
+上面的三个遍历顺序，就对应了二叉树的先、中、后序遍历。在这三种遍历顺序中，根结点的遍历分别被安排在了开始位置、中间位置和末尾位置，所谓的“先序”、”中序“和“后序”遍历也就是指的根结点的遍历时机。
+
+#### 遍历方法和编码实现
+
+##### 先序遍历
+
+遍历顺序如图
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg3gwfsgfjj30lg0dgaal.jpg)
+
+如果有 N 多个子树，那么我们在每一棵子树中都要进行的遍历如下：
+
+![](https://user-gold-cdn.xitu.io/2020/4/6/1714ec42acc57e04?imageslim)
+
+上面的二叉树结构为：
+
+```javascript
+const root = {
+  val: "A",
+  left: {
+    val: "B",
+    left: {
+      val: "D"
+    },
+    right: {
+      val: "E"
+    }
+  },
+  right: {
+    val: "C",
+    right: {
+      val: "F"
+    }
+  }
+};
+```
+
+编码实现：
+
+```javascript
+// 所有遍历函数的入参都是树的根结点对象
+function preorder(root) {
+    // 递归边界，root 为空
+    if(!root) {
+        return 
+    }
+     
+    // 输出当前遍历的结点值
+    console.log('当前遍历的结点值是：', root.val)  
+    // 递归遍历左子树 
+    preorder(root.left)  
+    // 递归遍历右子树  
+    preorder(root.right)
+}
+```
+
+##### 中序遍历
+
+遍历顺序如图
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg3h8gehxij30ju0csaal.jpg)
+
+动图解释如下：
+
+![](https://user-gold-cdn.xitu.io/2020/4/6/1714f098b2bd1f9a?imageslim)
+
+编码实现：
+
+```javascript
+// 所有遍历函数的入参都是树的根结点对象
+function inorder(root) {
+    // 递归边界，root 为空
+    if(!root) {
+        return 
+    }
+     
+    // 递归遍历左子树 
+    inorder(root.left)  
+    // 输出当前遍历的结点值
+    console.log('当前遍历的结点值是：', root.val)  
+    // 递归遍历右子树  
+    inorder(root.right)
+}
+```
+
+##### 后序遍历
+
+遍历顺序如图：
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1gg3habiukkj30le0dgdge.jpg)
+
+动图解释如下：
+
+![](https://user-gold-cdn.xitu.io/2020/4/6/1714efce7db2cdff?imageslim)
+
+编码实现：
+
+```javascript
+function postorder(root) {
+    // 递归边界，root 为空
+    if(!root) {
+        return 
+    }
+     
+    // 递归遍历左子树 
+    postorder(root.left)  
+    // 递归遍历右子树  
+    postorder(root.right)
+    // 输出当前遍历的结点值
+    console.log('当前遍历的结点值是：', root.val)  
+}
+```
+
+### 复杂度分析
+
+复杂度是评价一个算法或者一段程序运行时效性的重要参考。
+
+#### 时间复杂度
+
+> 时间复杂度，即运行一段程序代码要花多长时间
+
+我们先看这一段代码，一共会执行多少次？
+
+```javascript
+function traverse(arr){
+  const len = arr.length;
+  for(let i=0;i<len;i++){
+    console.log(arr[i]);
+  }
+}
+```
+
+首先，函数体里的第一行代码，它只会被执行一次，然后是循环体里的输出函数，`arr`数组有多长，它就会执行多少次
