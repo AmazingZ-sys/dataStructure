@@ -687,6 +687,91 @@ function postorder(root) {
 }
 ```
 
+## 哈希表
+
+在`JavaScript`中，是没有哈希表这种数据结构的，我们可以使用`JavaScript`的特性实现一个自己的哈希表
+
+哈希表是一种键值对的数据结构，键是唯一的，这跟`JavaScript`的`Object`类似，`Object`的属性也是唯一的，属性和值的映射就和键值对一样，我们通过操作`Object`的属性和值模拟哈希表的键值对。
+
+### 哈希表的常用方法：
+
+- `put`：往哈希表中加入一个键值对
+- `get`：获取一个指定键的值
+- `remove`：删除指定键关联的键值对
+- `getSize`：获取键值对的数量
+- `clear`：清空哈希表
+- `containsKey`：判断哈希表是否存在指定的值
+- `getKeys`：获取哈希表中所有的键（列表）
+- `getValues`：获取哈希表中所有值（列表）
+
+### 实现一个简单的哈希表
+
+```javascript
+// 实现一个简单的哈希表结构
+function HashTable(){
+  this.size = 0;
+  this.entry = {};
+  
+  // put 方法
+  this.put = function(key,value){
+    if(!this.containsKey(key)){
+      ++this.size
+    }
+    this.entry[key] = value;
+  }
+  
+  // get方法
+  this.get = function(key){
+    return (this.containsKey(key) ? this.entry[key] : null);
+  }
+  
+  // remove方法
+  this.remove = function(key){
+    if(this.containsKey(key) && (delete this.entry[key])){
+      --this.size;
+    }
+  }
+  
+  // containsKey方法
+  this.containsKey = function(key){
+	  return (key in this.entry)
+  }
+  
+  // containsValue方法
+  this.containsValue = function(value){
+	  for(let key in this.entry){
+		  if(this.entry[key] === value){
+			  return true
+		  }
+	  }
+	  return false
+  }
+  
+  // getKeys方法
+  this.getKeys = function(){
+	  return Object.keys(this.entry)
+  }
+  
+  // getValues方法
+  this.getValues = function(){
+	  return Object.values(this.entry)
+  }
+  
+  // getSize方法
+  this.getSize = function(){
+	  return this.size
+  }
+  
+  // clear方法
+  this.clear = function(){
+	  this.size = 0;
+	  this.entry = {};
+  }
+}
+```
+
+
+
 ## 复杂度分析
 
 复杂度是评价一个算法或者一段程序运行时效性的重要参考。
